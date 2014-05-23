@@ -7,10 +7,11 @@
 - [Yandex](http://yandex.ru/)
 - [Google](http://google.com/)
 - [Facebook](http://facebook.com/)
+- [Twitter](http://twitter.com/)
 
 **Заметка:** _в данном примере настройка осуществляется для **локального сервера**_
 
-**Заметка:** _для работы библиотеки подключите автозагрузчик классов_ `require_once 'lib/SocialAuther/autoload.php';`
+**Заметка:** _для работы библиотеки подключите автозагрузчик классов_ `require_once 'SocialAuther/autoload.php';`
 
 ## Использование ##
 
@@ -368,6 +369,20 @@
         }
     }
 
+### Аутентификация через Twitter ###
+
+- **Шаг 1.** Создание [нового приложения](https://apps.twitter.com/):
+    - Нажимаем на кнопку "Create new app"
+    - Заполняем поля
+- **Шаг 2.** Настройка приложения:
+    - Отмечаем "Allow this application to be used to Sign in with Twitter"
+    - Вводим Callback URL (достаточно чтобы он был просто указан): `http://localhost/auth?provider=twitter`
+- **Шаг 3.** Конфигурация параметров `client_id`, `client_secret`, `redirect_uri`:
+    - `client_id` - API key (вкладка API Keys). Пример: `0EpsCDtiUB5x0isArPjmwCjJf`
+    - `client_secret` - API secret (вкладка API Keys). Пример: `pj2FeebkY7eLN7Hq1b31LH48rveFOZb2XXb594iBrAUZlhm03N`
+    - `redirect_uri` - Callback URL (вкладка Settings). Пример: `http://localhost/auth?provider=twitter`
+- **Шаг 4.** Использование **SocialAuther**.
+
 ## Использование SocialAuther с несколькими социальными сетями и сервисами ##
 
     <?php
@@ -403,6 +418,11 @@
             'client_id'     => '346158195993388',
             'client_secret' => '2de1ab376d1c17cd47250920c05ab386',
             'redirect_uri'  => 'http://localhost/auth?provider=facebook'
+        ),
+        'twitter' => array(
+            'client_id'     => '0EpsCDtiUB5x0isArPjmwCjJf',
+            'client_secret' => 'pj2FeebkY7eLN7Hq1b31LH48rveFOZb2XXb594iBrAUZlhm03N',
+            'redirect_uri'  => 'http://localhost/auth?provider=twitter'
         )
     );
 
@@ -413,7 +433,7 @@
         $adapters[$adapter] = new $class($settings);
     }
 
-    if (!isset($_GET['code'])) {
+    if (!isset($_GET['code']) && !isset($_GET['oauth_token'])) {
         foreach ($adapters as $title => $adapter) {
             echo '<p><a href="' . $adapter->getAuthUrl() . '">Аутентификация через ' . ucfirst($title) . '</a></p>';
         }
@@ -446,8 +466,3 @@
                 echo '<img src="' . $auther->getAvatar() . '" />'; echo "<br />";
         }
     }
-
-## История изменений ##
-
-### SocialAuther 1.0 ###
-- Добавлена возможность аутентификации через [ВКонтакте](http://vk.com/), [Одноклассники](http://odnoklassniki.ru/), [Mail.Ru](http://mail.ru/), [Yandex](http://yandex.ru/), [Google](http://google.com/), [Facebook](http://facebook.com/)
