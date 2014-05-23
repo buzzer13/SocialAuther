@@ -27,11 +27,23 @@ class Vk extends AbstractAdapter
     {
         $result = null;
 
-        if (isset($this->userInfo['first_name']) && isset($this->userInfo['last_name'])) {
-            $result = $this->userInfo['first_name'] . ' ' . $this->userInfo['last_name'];
-        } elseif (isset($this->userInfo['first_name']) && !isset($this->userInfo['last_name'])) {
+        if (isset($this->userInfo['first_name'])) {
             $result = $this->userInfo['first_name'];
-        } elseif (!isset($this->userInfo['first_name']) && isset($this->userInfo['last_name'])) {
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get user name or null if it is not set
+     *
+     * @return string|null
+     */
+    public function getLastName()
+    {
+        $result = null;
+        
+        if (isset($this->userInfo['last_name'])) {
             $result = $this->userInfo['last_name'];
         }
 
@@ -97,6 +109,10 @@ class Vk extends AbstractAdapter
                 $userInfo = $this->get('https://api.vk.com/method/users.get', $params);
                 if (isset($userInfo['response'][0]['uid'])) {
                     $this->userInfo = $userInfo['response'][0];
+
+                    if (isset($tokenInfo['email']))
+                        $this->userInfo['email'] = $tokenInfo['email'];
+
                     $result = true;
                 }
             }
@@ -116,7 +132,7 @@ class Vk extends AbstractAdapter
             'auth_url'    => 'http://oauth.vk.com/authorize',
             'auth_params' => array(
                 'client_id'     => $this->clientId,
-                'scope'         => 'notify',
+                'scope'         => 'notify,email',
                 'redirect_uri'  => $this->redirectUri,
                 'response_type' => 'code'
             )

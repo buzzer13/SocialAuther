@@ -86,7 +86,7 @@ abstract class AbstractAdapter implements AdapterInterface
     {
         $result = null;
 
-        if (isset($this->userInfo[$this->socialFieldsMap['socialId']])) {
+        if (isset($this->socialFieldsMap['socialId']) && isset($this->userInfo[$this->socialFieldsMap['socialId']])) {
             $result = $this->userInfo[$this->socialFieldsMap['socialId']];
         }
 
@@ -102,7 +102,7 @@ abstract class AbstractAdapter implements AdapterInterface
     {
         $result = null;
 
-        if (isset($this->userInfo[$this->socialFieldsMap['email']])) {
+        if (isset($this->socialFieldsMap['email']) && isset($this->userInfo[$this->socialFieldsMap['email']])) {
             $result = $this->userInfo[$this->socialFieldsMap['email']];
         }
 
@@ -118,8 +118,24 @@ abstract class AbstractAdapter implements AdapterInterface
     {
         $result = null;
 
-        if (isset($this->userInfo[$this->socialFieldsMap['name']])) {
+        if (isset($this->socialFieldsMap['name']) && isset($this->userInfo[$this->socialFieldsMap['name']])) {
             $result = $this->userInfo[$this->socialFieldsMap['name']];
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get user last name or null if it is not set
+     *
+     * @return string|null
+     */
+    public function getLastName()
+    {
+        $result = null;
+
+        if (isset($this->socialFieldsMap['lastName']) && isset($this->userInfo[$this->socialFieldsMap['lastName']])) {
+            $result = $this->userInfo[$this->socialFieldsMap['lastName']];
         }
 
         return $result;
@@ -133,7 +149,7 @@ abstract class AbstractAdapter implements AdapterInterface
     {
         $result = null;
 
-        if (isset($this->userInfo[$this->socialFieldsMap['socialPage']])) {
+        if (isset($this->socialFieldsMap['socialPage']) && isset($this->userInfo[$this->socialFieldsMap['socialPage']])) {
             $result = $this->userInfo[$this->socialFieldsMap['socialPage']];
         }
 
@@ -149,7 +165,7 @@ abstract class AbstractAdapter implements AdapterInterface
     {
         $result = null;
 
-        if (isset($this->userInfo[$this->socialFieldsMap['avatar']])) {
+        if (isset($this->socialFieldsMap['avatar']) && isset($this->userInfo[$this->socialFieldsMap['avatar']])) {
             $result = $this->userInfo[$this->socialFieldsMap['avatar']];
         }
 
@@ -165,7 +181,7 @@ abstract class AbstractAdapter implements AdapterInterface
     {
         $result = null;
 
-        if (isset($this->userInfo[$this->socialFieldsMap['sex']])) {
+        if (isset($this->socialFieldsMap['sex']) && isset($this->userInfo[$this->socialFieldsMap['sex']])) {
             $result = $this->userInfo[$this->socialFieldsMap['sex']];
         }
 
@@ -181,7 +197,7 @@ abstract class AbstractAdapter implements AdapterInterface
     {
         $result = null;
 
-        if (isset($this->userInfo[$this->socialFieldsMap['birthday']])) {
+        if (isset($this->socialFieldsMap['birthday']) && isset($this->userInfo[$this->socialFieldsMap['birthday']])) {
             $result = date('d.m.Y', strtotime($this->userInfo[$this->socialFieldsMap['birthday']]));
         }
 
