@@ -74,9 +74,30 @@ class Vk extends AbstractAdapter
     public function getSex()
     {
         $result = null;
+
         if (isset($this->userInfo['sex'])) {
             $result = $this->userInfo['sex'] == 1 ? 'female' : 'male';
         }
+
+        return $result;
+    }
+
+    /**
+     * Get user connections (skype, facebook, twitter, livejournal, instagram)
+     *
+     * @return array|null
+     */
+    public function getConnections()
+    {
+        $result = array(
+            'skype'         => null,
+            'facebook'      => null,
+            'twitter'       => null,
+            'livejournal'   => null,
+            'instagram'     => null
+        );
+
+        $result = array_replace($result, array_intersect_key($this->userInfo, $result));
 
         return $result;
     }
@@ -102,7 +123,7 @@ class Vk extends AbstractAdapter
             if (isset($tokenInfo['access_token'])) {
                 $params = array(
                     'uids'         => $tokenInfo['user_id'],
-                    'fields'       => 'uid,first_name,last_name,screen_name,sex,bdate,photo_big',
+                    'fields'       => 'uid,first_name,last_name,screen_name,sex,bdate,photo_big,connections',
                     'access_token' => $tokenInfo['access_token']
                 );
 
