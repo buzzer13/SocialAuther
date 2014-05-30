@@ -19,7 +19,8 @@ class Twitter extends AbstractAdapter
             'socialId'   => 'id',
             'email'      => 'email',
             'name'       => 'name',
-            'avatar'     => 'profile_image_url'
+            'avatar'     => 'profile_image_url',
+            'screenName' => 'screen_name'
         );
 
         $this->provider = 'twitter';

@@ -142,6 +142,22 @@ abstract class AbstractAdapter implements AdapterInterface
     }
 
     /**
+     * Get user scren name or null if it is not set
+     *
+     * @return string|null
+     */
+    public function getScreenName()
+    {
+        $result = null;
+
+        if (isset($this->socialFieldsMap['screenName']) && isset($this->userInfo[$this->socialFieldsMap['screenName']])) {
+            $result = $this->userInfo[$this->socialFieldsMap['screenName']];
+        }
+
+        return $result;
+    }
+
+    /**
      * Get user social page url or null if it is not set
      * @return string|null
      */

@@ -12,42 +12,13 @@ class Vk extends AbstractAdapter
             'socialId'   => 'uid',
             'email'      => 'email',
             'avatar'     => 'photo_big',
-            'birthday'   => 'bdate'
+            'birthday'   => 'bdate',
+            'name'       => 'first_name',
+            'lastName'   => 'last_name',
+            'screenName' => 'screen_name'
         );
 
         $this->provider = 'vk';
-    }
-
-    /**
-     * Get user name or null if it is not set
-     *
-     * @return string|null
-     */
-    public function getName()
-    {
-        $result = null;
-
-        if (isset($this->userInfo['first_name'])) {
-            $result = $this->userInfo['first_name'];
-        }
-
-        return $result;
-    }
-
-    /**
-     * Get user name or null if it is not set
-     *
-     * @return string|null
-     */
-    public function getLastName()
-    {
-        $result = null;
-        
-        if (isset($this->userInfo['last_name'])) {
-            $result = $this->userInfo['last_name'];
-        }
-
-        return $result;
     }
 
     /**
