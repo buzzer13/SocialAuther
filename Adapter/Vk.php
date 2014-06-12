@@ -124,7 +124,7 @@ class Vk extends AbstractAdapter
             'auth_url'    => 'http://oauth.vk.com/authorize',
             'auth_params' => array(
                 'client_id'     => $this->clientId,
-                'scope'         => 'notify,email',
+                'scope'         => 'email',
                 'redirect_uri'  => $this->redirectUri,
                 'response_type' => 'code'
             )
